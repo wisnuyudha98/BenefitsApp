@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TubesMobPro</string>
+    <string name="action_settings">Settings</string>
+    <string name="search_menu">Menu Pencarian</string>
+    <string name="nama_umkm">Nama UMKM</string>
+    <string name="deskripsi_umkm">Deskripsi UMKM</string>
+    <string name="search_box">Masukkan kata pencarian</string>
+    <string name="search_button">Cari</string>
+    <string name="search_result">Hasil Pencarian:</string>
+</resources>
