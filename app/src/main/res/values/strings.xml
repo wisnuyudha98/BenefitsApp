@@ -4,6 +4,10 @@
     <string name="search_menu">Menu Pencarian</string>
     <string name="nama_umkm">Nama UMKM</string>
     <string name="deskripsi_umkm">Deskripsi UMKM</string>
+    <string name="foto_umkm">Foto UMKM</string>
+    <string name="alamat_umkm">Alamat UMKM</string>
+    <string name="price_range">Price Range</string>
+    <string name="rerata_ulasan">Rata-rata ulasan</string>
     <string name="search_box">Masukkan kata pencarian</string>
     <string name="search_button">Cari</string>
     <string name="search_result">Hasil Pencarian:</string>
