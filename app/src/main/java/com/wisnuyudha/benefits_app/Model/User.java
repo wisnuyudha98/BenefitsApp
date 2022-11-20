@@ -3,6 +3,7 @@ package com.wisnuyudha.benefits_app.Model;
 public class User {
     private String username;
     private String password;
+    private String userRole;
     private String namaUser;
     private int fotoUser;
 
@@ -20,6 +21,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public String getNamaUser() {
