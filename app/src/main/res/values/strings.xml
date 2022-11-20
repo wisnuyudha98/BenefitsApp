@@ -11,4 +11,10 @@
     <string name="search_box">Masukkan kata pencarian</string>
     <string name="search_button">Cari</string>
     <string name="search_result">Hasil Pencarian:</string>
+    <string name="nama_produk">Nama Produk</string>
+    <string name="deskripsi_produk">Desktipsi Produk</string>
+    <string name="harga_produk">Harga Produk</string>
+    <string name="stok_produk">Stok Produk</string>
+    <string name="penulis_ulasan">Penulis ulasan</string>
+    <string name="isi_ulasan">Isi ulasan</string>
 </resources>

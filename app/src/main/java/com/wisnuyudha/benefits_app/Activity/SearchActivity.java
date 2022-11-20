@@ -1,14 +1,16 @@
-package com.wisnuyudha.benefits_app;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.wisnuyudha.benefits_app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.text.TextUtils;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.wisnuyudha.benefits_app.R;
 
 public class SearchActivity extends AppCompatActivity {
     private EditText search;

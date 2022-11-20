@@ -1,5 +1,7 @@
 package com.wisnuyudha.benefits_app;
 
+import com.wisnuyudha.benefits_app.Model.UMKM;
+
 import java.util.ArrayList;
 
 public class UMKMData {
@@ -25,7 +27,7 @@ public class UMKMData {
         R.drawable.ic_launcher_background,
     };
 
-    static ArrayList<UMKM> getListData(){
+    public static ArrayList<UMKM> getListData(){
         ArrayList<UMKM> list = new ArrayList<>();
         for (int position = 0; position < namaUMKM.length; position++){
             UMKM umkm = new UMKM();

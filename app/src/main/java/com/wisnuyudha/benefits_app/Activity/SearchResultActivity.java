@@ -1,12 +1,17 @@
-package com.wisnuyudha.benefits_app;
+package com.wisnuyudha.benefits_app.Activity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.wisnuyudha.benefits_app.R;
+import com.wisnuyudha.benefits_app.Model.UMKM;
+import com.wisnuyudha.benefits_app.Adapter.UMKMAdapter;
+import com.wisnuyudha.benefits_app.UMKMData;
 
 import java.util.ArrayList;
 

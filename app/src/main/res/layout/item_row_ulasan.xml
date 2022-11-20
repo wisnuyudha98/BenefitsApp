@@ -24,7 +24,8 @@
             android:id="@+id/penulis_ulasan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/nama_umkm"
+            android:text="@string/penulis_ulasan"
+            android:textStyle="bold"
             android:textColor="@color/white"/>
 
         <TextView
@@ -32,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@string/nama_umkm"
+            android:text="@string/isi_ulasan"
             android:textColor="@color/white"/>
 
     </LinearLayout>

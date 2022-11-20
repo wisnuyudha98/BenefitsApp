@@ -1,4 +1,4 @@
-package com.wisnuyudha.benefits_app;
+package com.wisnuyudha.benefits_app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;

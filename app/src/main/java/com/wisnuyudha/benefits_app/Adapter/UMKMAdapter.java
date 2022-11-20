@@ -1,4 +1,4 @@
-package com.wisnuyudha.benefits_app;
+package com.wisnuyudha.benefits_app.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.wisnuyudha.benefits_app.R;
+import com.wisnuyudha.benefits_app.Model.UMKM;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class UMKMAdapter extends RecyclerView.Adapter<UMKMAdapter.ListViewHolder
     public UMKMAdapter(ArrayList<UMKM> list){
         this.listUMKM = list;
     }
+
     @NonNull
     @Override
     public UMKMAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
