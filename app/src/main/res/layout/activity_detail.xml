@@ -29,6 +29,8 @@
             android:layout_width="275dp"
             android:layout_height="175dp"
             android:layout_marginTop="30dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nama_detail_umkm"
@@ -52,7 +54,6 @@
             android:id="@+id/deskripsi_umkm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:paddingRight="60dp"
             android:paddingLeft="60dp"
             android:orientation="vertical"
@@ -77,38 +78,66 @@
                 android:text="@string/deskripsi_umkm"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/price_range_detail"
+        <LinearLayout
+            android:id="@+id/price_range"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_price_range"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="70dp"
             android:layout_marginLeft="70dp"
+            android:orientation="vertical"
+            android:background="@drawable/background_price_range"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/deskripsi_umkm"
-            android:text="@string/price_range"
-            android:textAlignment="center"/>
+            app:layout_constraintTop_toBottomOf="@id/deskripsi_umkm">
+
+            <TextView
+                android:id="@+id/price_range_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:text="@string/price_range"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:text="@string/tap_hint"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ulasan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:background="@drawable/border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_range">
 
         <TextView
             android:id="@+id/rerata_ulasan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/price_range_detail"
+            android:layout_gravity="center"
             android:text="@string/rerata_ulasan"
+            android:textSize="18sp"
             android:textStyle="bold"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_ulasan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/rerata_ulasan"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:text="@string/tap_hint"
+                android:textSize="10dp"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

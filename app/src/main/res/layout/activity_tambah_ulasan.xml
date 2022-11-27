@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="30dp"
+    tools:context=".Activity.TambahUlasanActivity">
+
+    <EditText
+        android:id="@+id/input_ulasan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:inputType="textMultiLine"
+        android:hint="Tulis ulasan anda di sini"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Berapa bintang anda menilai UMKM ini (1-5)?"/>
+
+        <Spinner
+            android:id="@+id/nilai_ulasan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:popupBackground="@drawable/border_search"
+            android:layout_marginStart="10dp">
+
+        </Spinner>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Tahu UMKM dari:"/>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/referral_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aplikasi"/>
+
+        <RadioButton
+            android:id="@+id/referral_kerabat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Teman / Kerabat"/>
+
+        <RadioButton
+            android:id="@+id/referral_lain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lainnya:"/>
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/referral_lain_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button_input_ulasan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Kirim ulasan"/>
+</LinearLayout>

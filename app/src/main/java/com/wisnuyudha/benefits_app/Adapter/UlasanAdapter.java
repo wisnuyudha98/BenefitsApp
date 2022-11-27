@@ -14,18 +14,18 @@ import com.bumptech.glide.request.RequestOptions;
 import com.wisnuyudha.benefits_app.Model.Ulasan;
 import com.wisnuyudha.benefits_app.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class UlasanAdapter extends RecyclerView.Adapter<UlasanAdapter.ListViewHolder> {
 
-    private ArrayList<Ulasan> listUlasan;
+    private List<Ulasan> listUlasan;
     private OnItemClickCallback onItemClickCallback;
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    public UlasanAdapter(ArrayList<Ulasan> list){
+    public UlasanAdapter(List<Ulasan> list){
         this.listUlasan = list;
     }
 

@@ -11,21 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.wisnuyudha.benefits_app.R;
 import com.wisnuyudha.benefits_app.Model.UMKM;
+import com.wisnuyudha.benefits_app.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class UMKMAdapter extends RecyclerView.Adapter<UMKMAdapter.ListViewHolder> {
 
-    private ArrayList<UMKM> listUMKM;
+    private List<UMKM> listUMKM;
     private OnItemClickCallback onItemClickCallback;
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    public UMKMAdapter(ArrayList<UMKM> list){
+    public UMKMAdapter(List<UMKM> list){
         this.listUMKM = list;
     }
 

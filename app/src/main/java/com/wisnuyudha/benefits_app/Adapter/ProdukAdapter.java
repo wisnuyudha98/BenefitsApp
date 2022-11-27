@@ -14,18 +14,18 @@ import com.bumptech.glide.request.RequestOptions;
 import com.wisnuyudha.benefits_app.Model.Produk;
 import com.wisnuyudha.benefits_app.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ListViewHolder> {
 
-    private ArrayList<Produk> listProduk;
+    private List<Produk> listProduk;
     private OnItemClickCallback onItemClickCallback;
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    public ProdukAdapter(ArrayList<Produk> list){
+    public ProdukAdapter(List<Produk> list){
         this.listProduk = list;
     }
 
