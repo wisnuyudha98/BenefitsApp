@@ -1,11 +1,34 @@
 package com.wisnuyudha.benefits_app.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Ulasan {
+
+    @SerializedName("id_ulasan")
+    private int id_ulasan;
+
+    @SerializedName("penulis_ulasan")
     private String penulisUlasan;
-    private String namaProduk;
+
+    @SerializedName("nama_umkm")
+    private String namaUMKM;
+
+    @SerializedName("isi_ulasan")
     private String isiUlasan;
+
+    @SerializedName("nilai_ulasan")
     private float nilaiUlasan;
-    private int fotoPenulis;
+
+    @SerializedName("referral")
+    private String referral;
+
+    public int getId_ulasan() {
+        return id_ulasan;
+    }
+
+    public void setId_ulasan(int id_ulasan) {
+        this.id_ulasan = id_ulasan;
+    }
 
     public String getPenulisUlasan() {
         return penulisUlasan;
@@ -15,12 +38,12 @@ public class Ulasan {
         this.penulisUlasan = penulisUlasan;
     }
 
-    public String getNamaProduk() {
-        return namaProduk;
+    public String getNamaUMKM() {
+        return namaUMKM;
     }
 
-    public void setNamaProduk(String namaProduk) {
-        this.namaProduk = namaProduk;
+    public void setNamaUMKM(String namaUMKM) {
+        this.namaUMKM = namaUMKM;
     }
 
     public String getIsiUlasan() {
@@ -39,11 +62,11 @@ public class Ulasan {
         this.nilaiUlasan = nilaiUlasan;
     }
 
-    public int getFotoPenulis() {
-        return fotoPenulis;
+    public String getReferral() {
+        return referral;
     }
 
-    public void setFotoPenulis(int fotoPenulis) {
-        this.fotoPenulis = fotoPenulis;
+    public void setReferral(String referral) {
+        this.referral = referral;
     }
 }

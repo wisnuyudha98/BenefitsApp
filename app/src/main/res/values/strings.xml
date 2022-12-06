@@ -22,4 +22,23 @@
     <string name="password">Password</string>
     <string name="daftar">Daftar</string>
     <string name="tap_hint">Sentuh untuk lihat detail</string>
+    <string name="masuk">Masuk</string>
+    <string-array name="menu_nonuser">
+        <item>Cari</item>
+        <item>Masuk</item>
+        <item>Daftar</item>
+    </string-array>
+    <string-array name="menu_pengguna">
+        <item>Cari</item>
+        <item>Keluar</item>
+    </string-array>
+    <string-array name="menu_pengelola">
+        <item>Cari</item>
+        <item>Daftar UMKM</item>
+        <item>Keluar</item>
+    </string-array>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="hapus">Hapus</string>
+    <string name="edit">Edit</string>
 </resources>

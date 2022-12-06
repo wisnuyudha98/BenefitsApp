@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.wisnuyudha.benefits_app.Config;
 import com.wisnuyudha.benefits_app.Model.Produk;
 import com.wisnuyudha.benefits_app.R;
 
@@ -40,13 +41,12 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ListViewHo
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Produk produk = listProduk.get(position);
         Glide.with(holder.itemView.getContext())
-                .load(produk.getFotoProduk())
+                .load(Config.PRODUK_IMAGES_URL + produk.getFotoProduk())
                 .apply(new RequestOptions().override(75, 75))
                 .into(holder.fotoProduk);
         holder.namaProduk.setText(produk.getNamaProduk());
         holder.deskripsiProduk.setText(produk.getDeskripsiProduk());
-        holder.stokProduk.setText(produk.getStokProduk());
-        holder.hargaProduk.setText(produk.getHargaProduk());
+        holder.hargaProduk.setText("Rp. " + produk.getHargaProduk());
     }
 
     @Override
@@ -57,14 +57,13 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ListViewHo
     public class ListViewHolder extends RecyclerView.ViewHolder {
 
         ImageView fotoProduk;
-        TextView namaProduk, deskripsiProduk, stokProduk, hargaProduk;
+        TextView namaProduk, deskripsiProduk, hargaProduk;
 
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);
             fotoProduk = itemView.findViewById(R.id.foto_produk);
             namaProduk = itemView.findViewById(R.id.nama_produk);
             deskripsiProduk = itemView.findViewById(R.id.deskripsi_produk);
-            stokProduk = itemView.findViewById(R.id.stok_produk);
             hargaProduk = itemView.findViewById(R.id.harga_produk);
         }
     }

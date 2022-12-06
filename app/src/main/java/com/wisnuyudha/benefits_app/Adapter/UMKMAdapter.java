@@ -1,5 +1,6 @@
 package com.wisnuyudha.benefits_app.Adapter;
 
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.wisnuyudha.benefits_app.Model.UMKM;
 import com.wisnuyudha.benefits_app.R;
 
@@ -20,6 +19,7 @@ public class UMKMAdapter extends RecyclerView.Adapter<UMKMAdapter.ListViewHolder
 
     private List<UMKM> listUMKM;
     private OnItemClickCallback onItemClickCallback;
+    SharedPreferences sp;
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
@@ -39,10 +39,12 @@ public class UMKMAdapter extends RecyclerView.Adapter<UMKMAdapter.ListViewHolder
     @Override
     public void onBindViewHolder(@NonNull UMKMAdapter.ListViewHolder holder, int position) {
         UMKM umkm = listUMKM.get(position);
-        Glide.with(holder.itemView.getContext())
-                .load(umkm.getFotoUMKM())
+        /*Glide.with(holder.itemView.getContext())
+                .load(Config.UMKM_IMAGES_URL + umkm.getFotoUMKM())
                 .apply(new RequestOptions().override(75, 75))
                 .into(holder.fotoUMKM);
+
+         */
         holder.namaUMKM.setText(umkm.getNamaUMKM());
         holder.deskripsiUMKM.setText(umkm.getDeskripsiUMKM());
 
@@ -66,9 +68,9 @@ public class UMKMAdapter extends RecyclerView.Adapter<UMKMAdapter.ListViewHolder
 
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);
-            fotoUMKM = itemView.findViewById(R.id.foto_umkm_cari);
-            namaUMKM = itemView.findViewById(R.id.nama_umkm_cari);
-            deskripsiUMKM = itemView.findViewById(R.id.deskripsi_umkm_cari);
+            fotoUMKM = itemView.findViewById(R.id.foto_umkm_list);
+            namaUMKM = itemView.findViewById(R.id.nama_umkm_list);
+            deskripsiUMKM = itemView.findViewById(R.id.deskripsi_umkm_list);
         }
     }
 

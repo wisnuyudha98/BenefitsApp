@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/border"
+    android:id="@+id/item_row_produk"
     android:padding="20dp">
 
     <ImageView
@@ -45,15 +46,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/stok_produk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/stok_produk"/>
+            android:text="@string/harga_produk"/>
 
         <TextView
             android:id="@+id/harga_produk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@string/harga_produk"/>
 
     </LinearLayout>

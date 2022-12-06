@@ -2,22 +2,20 @@ package com.wisnuyudha.benefits_app.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class GetUser {
 
     @SerializedName("status")
-    String status;
+    private int status;
     @SerializedName("message")
-    String message;
+    private String message;
     @SerializedName("data")
-    List<User> listDataUser;
+    private User user;
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -29,11 +27,11 @@ public class GetUser {
         this.message = message;
     }
 
-    public List<User> getListDataUser() {
-        return listDataUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setListDataUser(List<User> listDataUser) {
-        this.listDataUser = listDataUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

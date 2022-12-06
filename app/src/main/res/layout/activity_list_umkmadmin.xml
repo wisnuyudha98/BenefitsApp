@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     android:orientation="vertical"
-    tools:context=".Activity.ListProdukActivity">
+    tools:context=".Activity.ListUMKMAdminActivity">
 
-    <Button
-        android:id="@+id/button_tambah_produk"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="+ Tambah produk"/>
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:text="UMKM terdaftar"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_produk"
+        android:id="@+id/rv_umkm_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"/>

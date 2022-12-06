@@ -16,36 +16,33 @@
         android:inputType="textMultiLine"
         android:hint="Tulis ulasan anda di sini"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Berapa bintang anda menilai UMKM ini (1-5)?"/>
-
-        <Spinner
-            android:id="@+id/nilai_ulasan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:popupBackground="@drawable/border_search"
-            android:layout_marginStart="10dp">
-
-        </Spinner>
-
-
-    </LinearLayout>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:text="Nilai ulasan"
+        android:textSize="15sp"/>
+
+    <RatingBar
+        android:id="@+id/nilai_ulasan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:isIndicator="false"
+        android:stepSize="1"/>
+
+    <TextView
+        android:id="@+id/header_referral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Tahu UMKM dari:"/>
+        android:text="Tahu UMKM dari:"
+        android:textSize="15sp"/>
 
     <RadioGroup
+        android:id="@+id/radio_group_referral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

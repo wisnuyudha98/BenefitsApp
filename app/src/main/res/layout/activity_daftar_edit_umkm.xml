@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="30dp"
+    tools:context=".Activity.DaftarEditUMKMActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama UMKM:"/>
+
+        <EditText
+            android:id="@+id/input_nama_umkm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/text_hint_input_pengelola_umkm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Nama pengelola UMKM:"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/input_pengelola_umkm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Deskripsi UMKM:"/>
+
+        <EditText
+            android:id="@+id/input_deskripsi_umkm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:inputType="textMultiLine"
+            android:maxLines="3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Alamat lokasi UMKM:"/>
+
+        <EditText
+            android:id="@+id/input_alamat_umkm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:inputType="textMultiLine"
+            android:maxLines="3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Kontak untuk UMKM:"/>
+
+        <EditText
+            android:id="@+id/input_kontak_umkm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/checkbox_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Kategori UMKM:"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_makanan_berat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Makanan berat"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_makanan_ringan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Makanan ringan"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_minuman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Minuman"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_kerajinan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kerajinan tangan"/>
+
+        <Button
+            android:id="@+id/button_daftar_umkm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/daftar"/>
+
+        <Button
+            android:id="@+id/button_hapus_umkm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#ff0000"
+            android:text="@string/hapus"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</ScrollView>

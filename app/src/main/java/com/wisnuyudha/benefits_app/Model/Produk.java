@@ -1,13 +1,34 @@
 package com.wisnuyudha.benefits_app.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Produk {
+
+    @SerializedName("id_produk")
+    private int idProduk;
+
+    @SerializedName("nama_produk")
     private String namaProduk;
+
+    @SerializedName("deskripsi_produk")
     private String deskripsiProduk;
+
+    @SerializedName("harga_produk")
     private int hargaProduk;
-    private int stokProduk;
-    private boolean tersedia;
+
+    @SerializedName("nama_umkm")
     private String namaUMKMProduk;
-    private int fotoProduk;
+
+    @SerializedName("foto_produk")
+    private String fotoProduk;
+
+    public int getIdProduk() {
+        return idProduk;
+    }
+
+    public void setIdProduk(int idProduk) {
+        this.idProduk = idProduk;
+    }
 
     public String getNamaProduk() {
         return namaProduk;
@@ -33,22 +54,6 @@ public class Produk {
         this.hargaProduk = hargaProduk;
     }
 
-    public int getStokProduk() {
-        return stokProduk;
-    }
-
-    public void setStokProduk(int stokProduk) {
-        this.stokProduk = stokProduk;
-    }
-
-    public boolean isTersedia() {
-        return tersedia;
-    }
-
-    public void setTersedia(boolean tersedia) {
-        this.tersedia = tersedia;
-    }
-
     public String getNamaUMKMProduk() {
         return namaUMKMProduk;
     }
@@ -57,11 +62,11 @@ public class Produk {
         this.namaUMKMProduk = namaUMKMProduk;
     }
 
-    public int getFotoProduk() {
+    public String getFotoProduk() {
         return fotoProduk;
     }
 
-    public void setFotoProduk(int fotoProduk) {
+    public void setFotoProduk(String fotoProduk) {
         this.fotoProduk = fotoProduk;
     }
 }

@@ -1,11 +1,25 @@
 package com.wisnuyudha.benefits_app.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
+    @SerializedName("id_user")
+    private int id_user;
+
+    @SerializedName("username")
     private String username;
+
+    @SerializedName("password")
     private String password;
+
+    @SerializedName("user_role")
     private String userRole;
+
+    @SerializedName("nama_user")
     private String namaUser;
-    private int fotoUser;
+
+    @SerializedName("foto_user")
+    private String fotoUser;
 
     public String getUsername() {
         return username;
@@ -39,11 +53,11 @@ public class User {
         this.namaUser = namaUser;
     }
 
-    public int getFotoUser() {
+    public String getFotoUser() {
         return fotoUser;
     }
 
-    public void setFotoUser(int fotoUser) {
+    public void setFotoUser(String fotoUser) {
         this.fotoUser = fotoUser;
     }
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GetUMKM {
+public class GetListUMKM {
 
     @SerializedName("status")
     String status;
