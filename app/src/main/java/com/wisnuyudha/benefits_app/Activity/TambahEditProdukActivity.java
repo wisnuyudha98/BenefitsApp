@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.wisnuyudha.benefits_app.Model.Produk;
 import com.wisnuyudha.benefits_app.Model.UMKM;
@@ -28,12 +29,12 @@ public class TambahEditProdukActivity extends AppCompatActivity {
     private Button buttonInputProduk, buttonDeleteProduk;
     ApiInterface mApiInterface;
     SharedPreferences sp;
+    Toolbar toolbar;
 
     public static final String EXTRA_NAMA_UMKM = "nama_umkm";
-    public static final String EXTRA_NAMA_PRODUK = "default";
-    public static final String EXTRA_DESKRIPSI_PRODUK = "default";
-    public static final String EXTRA_HARGA_PRODUK = "default";
-    public static final String EXTRA_FOTO_PRODUK = "default";
+    public static final String EXTRA_NAMA_PRODUK = "nama_produk";
+    public static final String EXTRA_DESKRIPSI_PRODUK = "deksripsi_produk";
+    public static final String EXTRA_HARGA_PRODUK = "harga_produk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +46,27 @@ public class TambahEditProdukActivity extends AppCompatActivity {
         inputHargaProduk = findViewById(R.id.input_harga_produk);
         buttonInputProduk = findViewById(R.id.button_input_produk);
         buttonDeleteProduk = findViewById(R.id.button_delete_produk);
+        toolbar = findViewById(R.id.toolbar);
+
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         sp = getSharedPreferences("LOGIN", MODE_PRIVATE);
 
-        if (sp.contains("STATUS") && sp.getString("STATUS", "").equals("Edit")) {
+        if (sp.contains("Status") && sp.getString("Status", "").equals("Edit")) {
             inputNamaProduk.setText(getIntent().getStringExtra(EXTRA_NAMA_PRODUK));
             inputDeskripsiProduk.setText(getIntent().getStringExtra(EXTRA_DESKRIPSI_PRODUK));
             inputHargaProduk.setText(getIntent().getStringExtra(EXTRA_HARGA_PRODUK));
             buttonDeleteProduk.setVisibility(View.VISIBLE);
+            getSupportActionBar().setTitle("Edit Produk");
         }
         else {
             buttonDeleteProduk.setVisibility(View.GONE);
+            getSupportActionBar().setTitle("Tambah Produk");
         }
 
         buttonInputProduk.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +78,6 @@ public class TambahEditProdukActivity extends AppCompatActivity {
                 String deskripsiProduk = "";
                 String namaUMKM = "";
                 int hargaProduk = 0;
-                String fotoProduk = "";
 
                 if (TextUtils.isEmpty(inputNamaProduk.getText().toString())){
                     inputNamaProduk.setError(error);
@@ -84,23 +93,23 @@ public class TambahEditProdukActivity extends AppCompatActivity {
                     deskripsiProduk = inputDeskripsiProduk.getText().toString();
                     hargaProduk = Integer.parseInt(inputHargaProduk.getText().toString());
                     namaUMKM = getIntent().getStringExtra(EXTRA_NAMA_UMKM);
-                    if (sp.contains("Status") && sp.getString("STATUS", "").equals("Edit")) {
-                        mApiInterface.addUpdateDeleteProduk("update_produk", namaProduk, deskripsiProduk, hargaProduk, namaUMKM, fotoProduk).enqueue(new Callback<Produk>() {
+                    if (sp.contains("Status") && sp.getString("Status", "").equals("Edit")) {
+                        mApiInterface.addUpdateDeleteProduk("update_produk", namaProduk, deskripsiProduk, hargaProduk, namaUMKM).enqueue(new Callback<Produk>() {
                             @Override
                             public void onResponse(Call<Produk> call, Response<Produk> response) {
-                                Log.i(TAG, "Berhasil menambahkan produk" + response.body().toString());
+                                Log.i(TAG, "Berhasil mengubah produk" + response.body().toString());
                                 sp.edit().remove("Status").apply();
                                 finish();
                             }
 
                             @Override
                             public void onFailure(Call<Produk> call, Throwable t) {
-                                Log.e(TAG, "Gagal menambahkan Produk");
+                                Log.e(TAG, "Gagal mengubah Produk");
                             }
                         });
                     }
                     else {
-                        mApiInterface.addUpdateDeleteProduk("add_produk", namaProduk, deskripsiProduk, hargaProduk, namaUMKM, fotoProduk).enqueue(new Callback<Produk>() {
+                        mApiInterface.addUpdateDeleteProduk("add_produk", namaProduk, deskripsiProduk, hargaProduk, namaUMKM).enqueue(new Callback<Produk>() {
                             @Override
                             public void onResponse(Call<Produk> call, Response<Produk> response) {
                                 Log.i(TAG, "Berhasil menambahkan produk" + response.body().toString());

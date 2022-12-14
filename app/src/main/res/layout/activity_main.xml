@@ -27,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:backgroundTint="#ffc2c2"
         app:menu="@menu/menu_navigation"
         app:headerLayout="@layout/nav_header"/>
 

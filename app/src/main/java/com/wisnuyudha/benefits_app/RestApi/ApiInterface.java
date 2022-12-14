@@ -19,7 +19,7 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    @GET("beneifts.php")
+    @GET("benefits.php")
     Call<GetListUMKM> getAllUMKM(@Query("function") String function);
 
     @GET("benefits.php")
@@ -97,7 +97,6 @@ public interface ApiInterface {
             @Field("nama_produk") String nama_produk,
             @Field("deskripsi_produk") String deskripsi_produk,
             @Field("harga_produk") int harga_produk,
-            @Field("nama_umkm") String nama_umkm,
-            @Field("foto_produk") String foto_produk);
+            @Field("nama_umkm") String nama_umkm);
 
 }

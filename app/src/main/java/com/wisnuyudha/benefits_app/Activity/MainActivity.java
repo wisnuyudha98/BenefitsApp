@@ -7,12 +7,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,7 +28,6 @@ import com.wisnuyudha.benefits_app.Model.UMKM;
 import com.wisnuyudha.benefits_app.R;
 import com.wisnuyudha.benefits_app.RestApi.ApiClient;
 import com.wisnuyudha.benefits_app.RestApi.ApiInterface;
-import com.wisnuyudha.benefits_app.databinding.ActivityMainBinding;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +39,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity{
 
     private DrawerLayout drawerLayout;
-    private ActivityMainBinding binding;
     ActionBarDrawerToggle drawerToggle;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity{
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
         sp = getSharedPreferences("LOGIN", MODE_PRIVATE);
+        sp.edit().remove("Status").apply();
+        sp.edit().remove("Search").apply();
 
         navView = findViewById(R.id.nav_view);
         mainRv = findViewById(R.id.rv_main_umkm_list);
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity{
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
+        setNavHeader();
         data();
 
         setSupportActionBar(toolbar);
@@ -120,9 +123,7 @@ public class MainActivity extends AppCompatActivity{
         listUMKMCall.enqueue(new Callback<GetListUMKM>() {
             @Override
             public void onResponse(Call<GetListUMKM> call, Response<GetListUMKM> response) {
-                /*
                 List<UMKM> listUMKM = response.body().getListDataUMKM();
-                Toast.makeText(MainActivity.this, "Retrieving " + listUMKM.get(0), Toast.LENGTH_LONG).show();
                 UMKMAdapter listUMKMAdapter = new UMKMAdapter(listUMKM);
                 mainRv.setAdapter(listUMKMAdapter);
                 mainRv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -133,12 +134,11 @@ public class MainActivity extends AppCompatActivity{
                         showSelectedUMKM(umkm);
                     }
                 });
-                 */
             }
 
             @Override
             public void onFailure(Call<GetListUMKM> call, Throwable t) {
-
+                Toast.makeText(MainActivity.this, "Terjadi kesalahan dalam memuat data UMKM", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -146,70 +146,27 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        if (sp.contains("USER_NAME")) {
-            headerNamaUser.setText(sp.getString("USER_NAME", ""));
-        }
+        Toast.makeText(this, sp.getString("USER_NAME", "") + " - " + sp.getString("USER_ROLE", "") + " - " + sp.getString("USER_PHOTO", ""), Toast.LENGTH_SHORT).show();
         if (!sp.contains("USER_ROLE")) {
             navView.getMenu().findItem(R.id.menu_login).setVisible(true);
             navView.getMenu().findItem(R.id.menu_daftar).setVisible(true);
             navView.getMenu().findItem(R.id.menu_daftar_umkm).setVisible(false);
             navView.getMenu().findItem(R.id.menu_logout).setVisible(false);
-            headerNamaUser.setText("Guest User");
-            Glide.with(this)
-                    .load(R.drawable.ic_launcher_background)
-                    .apply(new RequestOptions().override(50, 50))
-                    .into(headerFotoUser);
+            setNavHeader();
         }
         else if (sp.getString("USER_ROLE", "").equals("pengguna")) {
             navView.getMenu().findItem(R.id.menu_logout).setVisible(true);
             navView.getMenu().findItem(R.id.menu_daftar_umkm).setVisible(false);
             navView.getMenu().findItem(R.id.menu_login).setVisible(false);
             navView.getMenu().findItem(R.id.menu_daftar).setVisible(false);
-            headerNamaUser.setText(sp.getString("NAMA_USER", ""));
-            getFotoUser();
+            setNavHeader();
         }
         else {
             navView.getMenu().findItem(R.id.menu_logout).setVisible(true);
             navView.getMenu().findItem(R.id.menu_daftar_umkm).setVisible(true);
             navView.getMenu().findItem(R.id.menu_login).setVisible(false);
             navView.getMenu().findItem(R.id.menu_daftar).setVisible(false);
-            headerNamaUser.setText(sp.getString("NAMA_USER", ""));
-            getFotoUser();
-        }
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        if (sp.contains("USER_NAME")) {
-            headerNamaUser.setText(sp.getString("USER_NAME", ""));
-        }
-        if (!sp.contains("USER_ROLE")) {
-            navView.getMenu().findItem(R.id.menu_login).setVisible(true);
-            navView.getMenu().findItem(R.id.menu_daftar).setVisible(true);
-            navView.getMenu().findItem(R.id.menu_daftar_umkm).setVisible(false);
-            navView.getMenu().findItem(R.id.menu_logout).setVisible(false);
-            headerNamaUser.setText("Guest User");
-            Glide.with(this)
-                    .load(R.drawable.ic_launcher_background)
-                    .apply(new RequestOptions().override(50, 50))
-                    .into(headerFotoUser);
-        }
-        else if (sp.getString("USER_ROLE", "").equals("pengguna")) {
-            navView.getMenu().findItem(R.id.menu_logout).setVisible(true);
-            navView.getMenu().findItem(R.id.menu_daftar_umkm).setVisible(false);
-            navView.getMenu().findItem(R.id.menu_login).setVisible(false);
-            navView.getMenu().findItem(R.id.menu_daftar).setVisible(false);
-            headerNamaUser.setText(sp.getString("NAMA_USER", ""));
-            getFotoUser();
-        }
-        else {
-            navView.getMenu().findItem(R.id.menu_logout).setVisible(true);
-            navView.getMenu().findItem(R.id.menu_daftar_umkm).setVisible(true);
-            navView.getMenu().findItem(R.id.menu_login).setVisible(false);
-            navView.getMenu().findItem(R.id.menu_daftar).setVisible(false);
-            headerNamaUser.setText(sp.getString("NAMA_USER", ""));
-            getFotoUser();
+            setNavHeader();
         }
     }
 
@@ -233,8 +190,26 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+    public void setNavHeader() {
+        if (sp.contains("USER_NAME")) {
+            headerNamaUser.setText(sp.getString("USER_NAME", ""));
+            Glide.with(MainActivity.this)
+                    .load(Config.USER_IMAGES_URL + sp.getString("USER_PHOTO", ""))
+                    .apply(new RequestOptions().override(50,50))
+                    .into(headerFotoUser);
+        }
+        else {
+            headerNamaUser.setText("Guest user");
+            Glide.with(MainActivity.this)
+                    .load(R.drawable.ic_launcher_background)
+                    .apply(new RequestOptions().override(50, 50))
+                    .into(headerFotoUser);
+        }
+    }
+
     public void getFotoUser() {
-        Call<GetUser> userCall = mApiInterface.getFotoUser("get_foto_user", sp.getString("USER_NAME", ""));
+        String username = sp.getString("USER_NAME", "");
+        Call<GetUser> userCall = mApiInterface.getFotoUser("get_foto_user", username);
         userCall.enqueue(new Callback<GetUser>() {
             @Override
             public void onResponse(Call<GetUser> call, Response<GetUser> response) {
@@ -247,7 +222,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<GetUser> call, Throwable t) {
-
+                Toast.makeText(MainActivity.this, "Terjadi kesalahan dalam memuat foto user", Toast.LENGTH_SHORT).show();
             }
         });
     }

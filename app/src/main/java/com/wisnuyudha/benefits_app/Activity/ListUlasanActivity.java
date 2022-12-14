@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +37,7 @@ public class ListUlasanActivity extends AppCompatActivity {
     private Button buttonTambahUlasan;
     public static final String EXTRA_NAMA_UMKM = "nama_umkm";
     public static final String EXTRA_PENGELOLA_UMKM = "pengelola_umkm";
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,13 @@ public class ListUlasanActivity extends AppCompatActivity {
         rvUlasan.setLayoutManager(mLayoutManager);
         buttonTambahUlasan = findViewById(R.id.button_tambah_ulasan);
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        toolbar = findViewById(R.id.toolbar);
 
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Ulasan UMKM");
+        }
         sp = getSharedPreferences("LOGIN", MODE_PRIVATE);
 
         Boolean login_status = sp.getBoolean("USER_LOGGED", false);

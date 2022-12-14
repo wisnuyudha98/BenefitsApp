@@ -2,17 +2,24 @@ package com.wisnuyudha.benefits_app.Activity;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.wisnuyudha.benefits_app.Model.UMKM;
 import com.wisnuyudha.benefits_app.R;
@@ -27,16 +34,17 @@ public class DaftarEditUMKMActivity extends AppCompatActivity {
     private EditText namaUMKM, pengelolaUMKM, deskripsiUMKM, alamatUMKM, kontakUMKM;
     private TextView inputPengelolaHeader, checkboxHeader;
     private Button buttonDaftarUMKM, buttonHapusUMKM;
-    private CheckBox checkboxMakananBerat, checkboxMakananRingan, checkboxMinuman, checkboxKerajinan;
+    private RadioGroup radioKategori;
+    private RadioButton radioMakanan, radioToko, radioMinuman, radioJasa;
 
-    public static final String EXTRA_NAMA_UMKM = "default";
-    public static final String EXTRA_PENGELOLA_UMKM = "default";
-    public static final String EXTRA_DESKRIPSI_UMKM = "default";
-    public static final String EXTRA_ALAMAT_UMKM = "default";
-    public static final String EXTRA_KONTAK_UMKM = "default";
-    public static final String EXTRA_KATEGORI = "default";
-    public static final String EXTRA_FOTO_UMKM = "default";
-
+    public static final String EXTRA_NAMA_UMKM = "nama_umkm";
+    public static final String EXTRA_PENGELOLA_UMKM = "pengelola_umkm";
+    public static final String EXTRA_DESKRIPSI_UMKM = "deskripsi_umkm";
+    public static final String EXTRA_ALAMAT_UMKM = "alamat_umkm";
+    public static final String EXTRA_KONTAK_UMKM = "kontak_umkm";
+    public static final String EXTRA_KATEGORI = "kategori";
+    public static final String EXTRA_FOTO_UMKM = "foto_umkm";
+    Toolbar toolbar;
     SharedPreferences sp;
     ApiInterface mApiInterface;
 
@@ -52,16 +60,25 @@ public class DaftarEditUMKMActivity extends AppCompatActivity {
         alamatUMKM = findViewById(R.id.input_alamat_umkm);
         kontakUMKM = findViewById(R.id.input_kontak_umkm);
         checkboxHeader = findViewById(R.id.checkbox_header);
-        checkboxMakananBerat = findViewById(R.id.checkbox_makanan_berat);
-        checkboxMakananRingan = findViewById(R.id.checkbox_makanan_ringan);
-        checkboxMinuman = findViewById(R.id.checkbox_minuman);
-        checkboxKerajinan = findViewById(R.id.checkbox_kerajinan);
+        radioMakanan = findViewById(R.id.radio_makanan);
+        radioMinuman = findViewById(R.id.radio_minuman);
+        radioToko = findViewById(R.id.radio_toko);
+        radioJasa = findViewById(R.id.radio_jasa);
         buttonDaftarUMKM = findViewById(R.id.button_daftar_umkm);
         buttonHapusUMKM = findViewById(R.id.button_hapus_umkm);
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Pendaftaran UMKM");
+        }
 
         sp = getSharedPreferences("LOGIN", MODE_PRIVATE);
 
         if (sp.contains("Status") && sp.getString("Status", "").equals("Edit")) {
+
+            getSupportActionBar().setTitle("Edit data UMKM");
 
             buttonDaftarUMKM.setText("Update");
             buttonHapusUMKM.setVisibility(View.VISIBLE);
@@ -70,17 +87,17 @@ public class DaftarEditUMKMActivity extends AppCompatActivity {
             alamatUMKM.setText(getIntent().getStringExtra(EXTRA_ALAMAT_UMKM));
             kontakUMKM.setText(getIntent().getStringExtra(EXTRA_KONTAK_UMKM));
 
-            if (getIntent().getStringExtra(EXTRA_KATEGORI).contains("makanan berat")) {
-                checkboxMakananBerat.setChecked(true);
+            if (getIntent().getStringExtra(EXTRA_KATEGORI).equals("Makanan")) {
+                radioMakanan.setChecked(true);
             }
-            if (getIntent().getStringExtra(EXTRA_KATEGORI).contains("makanan ringan")) {
-                checkboxMakananRingan.setChecked(true);
+            if (getIntent().getStringExtra(EXTRA_KATEGORI).equals("Minuman")) {
+                radioMinuman.setChecked(true);
             }
-            if (getIntent().getStringExtra(EXTRA_KATEGORI).contains("minuman")) {
-                checkboxMinuman.setChecked(true);
+            if (getIntent().getStringExtra(EXTRA_KATEGORI).equals("Toko/Apotek")) {
+                radioToko.setChecked(true);
             }
-            if (getIntent().getStringExtra(EXTRA_KATEGORI).contains("kerajinan")) {
-                checkboxKerajinan.setChecked(true);
+            if (getIntent().getStringExtra(EXTRA_KATEGORI).equals("Jasa/Lainnya")) {
+                radioJasa.setChecked(true);
             }
 
             if (sp.getString("USER_ROLE", "").equals("admin")) {
@@ -125,7 +142,7 @@ public class DaftarEditUMKMActivity extends AppCompatActivity {
                 else if (TextUtils.isEmpty(kontakUMKM.getText().toString())){
                     kontakUMKM.setError(error);
                 }
-                else if (!checkboxMakananBerat.isChecked() && !checkboxMakananRingan.isChecked() && !checkboxMinuman.isChecked() && !checkboxKerajinan.isChecked()) {
+                else if (!radioMakanan.isChecked() && !radioToko.isChecked() && !radioMinuman.isChecked() && !radioJasa.isChecked()) {
                     checkboxHeader.setError("Kategori tidak boleh kosong");
                 }
                 else {
@@ -139,27 +156,22 @@ public class DaftarEditUMKMActivity extends AppCompatActivity {
                     else {
                         pengelola = sp.getString("USER_NAME", "");
                     }
-                    if (checkboxMakananBerat.isChecked()) {
-                        kategori += "makanan berat";
+                    if (radioMakanan.isChecked()) {
+                        kategori = "Makanan";
                     }
-                    if (checkboxMakananRingan.isChecked()) {
-                        if (!kategori.equals("")) {
-                            kategori += ", ";
-                        }
-                        kategori += "makanan ringan";
+
+                    if (radioMinuman.isChecked()) {
+                        kategori = "Minuman";
                     }
-                    if (checkboxMinuman.isChecked()) {
-                        if (!kategori.equals("")) {
-                            kategori += ", ";
-                        }
-                        kategori += "minuman";
+
+                    if (radioToko.isChecked()) {
+                        kategori = "Toko/Apotek";
                     }
-                    if (checkboxKerajinan.isChecked()) {
-                        if (!kategori.equals("")) {
-                            kategori += ", ";
-                        }
-                        kategori += "kerajinan";
+
+                    if (radioJasa.isChecked()) {
+                        kategori = "Jasa/Lainnya";
                     }
+
                     if (sp.contains("Status") && sp.getString("Status", "").equals("Edit")) {
                         mApiInterface.addUpdateDeleteUMKM("update_umkm", nama, deskripsi, pengelola, alamat, kontak, kategori, foto).enqueue(new Callback<UMKM>() {
                             @Override
@@ -201,21 +213,39 @@ public class DaftarEditUMKMActivity extends AppCompatActivity {
         buttonHapusUMKM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nama = "";
-                mApiInterface.addUpdateDeleteUMKM("delete_umkm", nama, "", "", "", "", "", "").enqueue(new Callback<UMKM>() {
-                    @Override
-                    public void onResponse(Call<UMKM> call, Response<UMKM> response) {
-                        if (response.isSuccessful()) {
-                            Log.i(TAG, "Berhasil menghapus UMKM");
-                        }
-                    }
+                new AlertDialog.Builder(DaftarEditUMKMActivity.this)
+                        .setTitle("Konfirmasi")
+                        .setMessage("Apakah anda yakin ingin menghapus?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String nama = getIntent().getStringExtra(EXTRA_NAMA_UMKM);
+                                mApiInterface.addUpdateDeleteUMKM("delete_umkm", nama, "", "", "", "", "", "").enqueue(new Callback<UMKM>() {
+                                    @Override
+                                    public void onResponse(Call<UMKM> call, Response<UMKM> response) {
+                                        if (response.isSuccessful()) {
+                                            Log.i(TAG, "Berhasil menghapus UMKM");
+                                        }
+                                    }
 
-                    @Override
-                    public void onFailure(Call<UMKM> call, Throwable t) {
-
-                    }
-                });
+                                    @Override
+                                    public void onFailure(Call<UMKM> call, Throwable t) {
+                                        Toast.makeText(DaftarEditUMKMActivity.this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

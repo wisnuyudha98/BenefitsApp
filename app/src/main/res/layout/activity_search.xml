@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <include layout="@layout/toolbar"/>
+
         <EditText
             android:id="@+id/search_box"
             android:layout_width="match_parent"
@@ -21,6 +23,7 @@
             android:layout_weight="0"
             android:background="@drawable/border_search"
             android:inputType="text"
+            android:imeOptions="actionSearch"
             android:hint="@string/search_box"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="30dp" />
@@ -34,7 +37,7 @@
             android:textSize="20sp"/>
 
         <LinearLayout
-            android:id="@+id/pick_kategori_makanan_berat"
+            android:id="@+id/pick_kategori_makanan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -47,26 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Makanan Berat"
-                android:textSize="25sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/pick_kategori_makanan_ringan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/border"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Makanan Ringan"
+                android:text="Makanan"
                 android:textSize="25sp"/>
 
         </LinearLayout>
@@ -91,7 +75,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/pick_kategori_kerajinan"
+            android:id="@+id/pick_kategori_toko"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -104,7 +88,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kerajinan"
+                android:text="Toko/Apotek"
+                android:textSize="25sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pick_kategori_jasa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jasa/Lainnya"
                 android:textSize="25sp"/>
 
         </LinearLayout>

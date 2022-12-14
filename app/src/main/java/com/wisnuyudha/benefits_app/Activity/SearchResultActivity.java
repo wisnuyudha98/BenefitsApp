@@ -1,11 +1,17 @@
 package com.wisnuyudha.benefits_app.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,28 +35,33 @@ public class SearchResultActivity extends AppCompatActivity {
     public static final String EXTRA_KATEGORI = "kategori";
     private RecyclerView rvUMKM;
     private ArrayList<UMKM> list = new ArrayList<>();
-    private TextView searchHighlight;
+    private TextView searchHighlight, emptyResult;
     ApiInterface mApiInterface;
     SharedPreferences sp;
+    Toolbar toolbar;
+    private DataLoading dataLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
         searchHighlight = findViewById(R.id.search_highlight);
-
+        emptyResult = findViewById(R.id.empty_result);
         rvUMKM = findViewById(R.id.rv_umkm);
+        toolbar = findViewById(R.id.toolbar);
 
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
         sp = getSharedPreferences("LOGIN", MODE_PRIVATE);
+        emptyResult.setVisibility(View.GONE);
 
-        if (sp.contains("Search") && sp.getString("Search", "").equals("kategori")) {
-            searchHighlight.setText("Kategori: " + getIntent().getStringExtra(EXTRA_KATEGORI));
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Hasil Pencarian");
         }
-        else {
-            searchHighlight.setText("Anda mencari: " + getIntent().getStringExtra(EXTRA_CARI));
-        }
-        dataSearch();
+
+        dataLoading = new DataLoading();
+        dataLoading.execute();
     }
 
     public void dataSearch() {
@@ -75,7 +86,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<GetListUMKM> call, Throwable t) {
-
+                    emptyResult.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -100,10 +111,18 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<GetListUMKM> call, Throwable t) {
-
+                    emptyResult.setVisibility(View.VISIBLE);
                 }
             });
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void showSelectedUMKM(UMKM umkm) {
@@ -116,5 +135,39 @@ public class SearchResultActivity extends AppCompatActivity {
         intent.putExtra(DetailActivity.EXTRA_PENGELOLA_UMKM, umkm.getPengelolaUMKM());
         intent.putExtra(DetailActivity.EXTRA_FOTO_UMKM, umkm.getFotoUMKM());
         startActivity(intent);
+    }
+
+    private class DataLoading extends AsyncTask<Void, Void, Void> {
+        ProgressDialog progressDialog;
+        SharedPreferences sp;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(SearchResultActivity.this, "Mengambil data", "Mohon menunggu");
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            sp = getSharedPreferences("LOGIN", MODE_PRIVATE);
+            if (sp.contains("Search") && sp.getString("Search", "").equals("kategori")) {
+                searchHighlight.setText("Kategori: " + getIntent().getStringExtra(EXTRA_KATEGORI));
+            }
+            else {
+                searchHighlight.setText("Anda mencari: " + getIntent().getStringExtra(EXTRA_CARI));
+            }
+            dataSearch();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            progressDialog.dismiss();
+        }
     }
 }

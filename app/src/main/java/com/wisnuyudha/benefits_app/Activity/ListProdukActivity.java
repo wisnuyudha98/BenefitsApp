@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +38,7 @@ public class ListProdukActivity extends AppCompatActivity {
     public String nama_user, nama_umkm, pengelola_umkm;
     public static final String EXTRA_NAMA_UMKM = "nama_umkm";
     public static final String EXTRA_PENGELOLA_UMKM = "pengelola_umkm";
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,17 @@ public class ListProdukActivity extends AppCompatActivity {
         rvProduk.setLayoutManager(mLayoutManager);
         buttonTambahProduk = findViewById(R.id.button_tambah_produk);
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        toolbar = findViewById(R.id.toolbar);
 
         sp = getSharedPreferences("LOGIN", MODE_PRIVATE);
 
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Daftar Produk");
+        }
+
+        sp.edit().remove("Status").apply();
         nama_user = sp.getString("USER_NAME", "");
         nama_umkm = getIntent().getStringExtra(EXTRA_NAMA_UMKM);
         pengelola_umkm = getIntent().getStringExtra(EXTRA_PENGELOLA_UMKM);
@@ -79,16 +90,9 @@ public class ListProdukActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<GetProduk> call, Response<GetProduk> response) {
                 List<Produk> produkList = response.body().getListDataProduk();
-                ProdukAdapter listProdukAdapter = new ProdukAdapter(produkList);
+                ProdukAdapter listProdukAdapter = new ProdukAdapter(produkList, ListProdukActivity.this, getIntent().getStringExtra(EXTRA_PENGELOLA_UMKM));
                 rvProduk.setAdapter(listProdukAdapter);
-                rvProduk.setLayoutManager(new LinearLayoutManager(ListProdukActivity.this));
-
-                listProdukAdapter.setOnItemClickCallback(new ProdukAdapter.OnItemClickCallback() {
-                    @Override
-                    public void onItemClicked(Produk produk) {
-                        showSelectedProduk(produk);
-                    }
-                });
+                rvProduk.setLayoutManager(new GridLayoutManager(ListProdukActivity.this, 2));
             }
 
             @Override
@@ -104,7 +108,6 @@ public class ListProdukActivity extends AppCompatActivity {
         intent.putExtra(TambahEditProdukActivity.EXTRA_NAMA_PRODUK, produk.getNamaProduk());
         intent.putExtra(TambahEditProdukActivity.EXTRA_DESKRIPSI_PRODUK, produk.getDeskripsiProduk());
         intent.putExtra(TambahEditProdukActivity.EXTRA_HARGA_PRODUK, produk.getHargaProduk());
-        intent.putExtra(TambahEditProdukActivity.EXTRA_FOTO_PRODUK, produk.getFotoProduk());
         sp.edit().putString("Status", "Edit").apply();
         startActivity(intent);
     }

@@ -6,12 +6,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.wisnuyudha.benefits_app.Model.GetUser;
 import com.wisnuyudha.benefits_app.R;
@@ -28,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonLogin;
     SharedPreferences sp;
     ApiInterface mApiInterface;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +41,16 @@ public class LoginActivity extends AppCompatActivity {
         loginUsername = findViewById(R.id.login_username);
         loginPassword = findViewById(R.id.login_password);
         buttonLogin = findViewById(R.id.button_login);
+        toolbar = findViewById(R.id.toolbar);
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         sp = getSharedPreferences("LOGIN", MODE_PRIVATE);
+
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Login");
+        }
 
         loginPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
@@ -59,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                         sp.edit().putString("USER_ROLE", response.body().getUser().getUserRole()).apply();
                         sp.edit().putString("USER_PHOTO", response.body().getUser().getFotoUser()).apply();
                         sp.edit().putBoolean("USER_LOGGED", true).apply();
-                        Toast.makeText(LoginActivity.this, "Login for " + response.body().getUser().getNamaUser(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Login for " + sp.getString("USER_NAME", ""), Toast.LENGTH_LONG).show();
                         finish();
                     }
 
@@ -71,5 +82,13 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

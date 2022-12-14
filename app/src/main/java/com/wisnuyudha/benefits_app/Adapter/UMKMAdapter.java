@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.wisnuyudha.benefits_app.Config;
 import com.wisnuyudha.benefits_app.Model.UMKM;
 import com.wisnuyudha.benefits_app.R;
 
@@ -39,12 +42,11 @@ public class UMKMAdapter extends RecyclerView.Adapter<UMKMAdapter.ListViewHolder
     @Override
     public void onBindViewHolder(@NonNull UMKMAdapter.ListViewHolder holder, int position) {
         UMKM umkm = listUMKM.get(position);
-        /*Glide.with(holder.itemView.getContext())
+        Glide.with(holder.itemView.getContext())
                 .load(Config.UMKM_IMAGES_URL + umkm.getFotoUMKM())
                 .apply(new RequestOptions().override(75, 75))
                 .into(holder.fotoUMKM);
 
-         */
         holder.namaUMKM.setText(umkm.getNamaUMKM());
         holder.deskripsiUMKM.setText(umkm.getDeskripsiUMKM());
 

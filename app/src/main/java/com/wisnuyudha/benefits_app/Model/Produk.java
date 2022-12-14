@@ -19,9 +19,6 @@ public class Produk {
     @SerializedName("nama_umkm")
     private String namaUMKMProduk;
 
-    @SerializedName("foto_produk")
-    private String fotoProduk;
-
     public int getIdProduk() {
         return idProduk;
     }
@@ -60,13 +57,5 @@ public class Produk {
 
     public void setNamaUMKMProduk(String namaUMKMProduk) {
         this.namaUMKMProduk = namaUMKMProduk;
-    }
-
-    public String getFotoProduk() {
-        return fotoProduk;
-    }
-
-    public void setFotoProduk(String fotoProduk) {
-        this.fotoProduk = fotoProduk;
     }
 }
