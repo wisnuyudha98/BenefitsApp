@@ -4,29 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     android:orientation="vertical"
     tools:context=".Activity.ListUlasanActivity">
 
-    <TextView
-        android:id="@+id/header_list_ulasan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:text="Ulasan"/>
+    <include layout="@layout/toolbar"/>
 
     <Button
         android:id="@+id/button_tambah_ulasan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="#ffb9b9"
         android:text="+ Tambah ulasan"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_ulasan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
 </LinearLayout>

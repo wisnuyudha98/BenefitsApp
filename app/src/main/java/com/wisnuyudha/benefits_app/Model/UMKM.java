@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class UMKM {
 
-    @SerializedName("id_umkm")
-    private int id_umkm;
-
     @SerializedName("nama_umkm")
     private String namaUMKM;
 
@@ -27,14 +24,6 @@ public class UMKM {
 
     @SerializedName("foto_umkm")
     private String fotoUMKM;
-
-    public int getId_umkm() {
-        return id_umkm;
-    }
-
-    public void setId_umkm(int id_umkm) {
-        this.id_umkm = id_umkm;
-    }
 
     public String getNamaUMKM() {
         return namaUMKM;

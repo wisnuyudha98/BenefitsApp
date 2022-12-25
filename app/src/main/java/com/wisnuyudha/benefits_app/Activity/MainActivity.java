@@ -19,10 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.wisnuyudha.benefits_app.Adapter.UMKMAdapter;
 import com.wisnuyudha.benefits_app.Config;
-import com.wisnuyudha.benefits_app.Model.GetListUMKM;
 import com.wisnuyudha.benefits_app.Model.GetUser;
 import com.wisnuyudha.benefits_app.Model.UMKM;
 import com.wisnuyudha.benefits_app.R;
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity{
     private TextView headerNamaUser;
     private ImageView headerFotoUser;
     Toolbar toolbar;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity{
         drawerToggle.syncState();
 
         setNavHeader();
-        data();
+        getData();
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    /*
     public void data() {
         Call<GetListUMKM> listUMKMCall = mApiInterface.getAllUMKM("get_umkm_all");
         listUMKMCall.enqueue(new Callback<GetListUMKM>() {
@@ -141,6 +146,36 @@ public class MainActivity extends AppCompatActivity{
                 Toast.makeText(MainActivity.this, "Terjadi kesalahan dalam memuat data UMKM", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+     */
+
+    private void getData() {
+        db.collection("umkm")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<UMKM> dataUMKM = queryDocumentSnapshots.toObjects(UMKM.class);
+                        Toast.makeText(MainActivity.this, dataUMKM.get(0).getDeskripsiUMKM(), Toast.LENGTH_LONG).show();
+                        UMKMAdapter listUMKMAdapter = new UMKMAdapter(dataUMKM);
+                        mainRv.setAdapter(listUMKMAdapter);
+                        mainRv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+                        listUMKMAdapter.setOnItemClickCallback(new UMKMAdapter.OnItemClickCallback() {
+                            @Override
+                            public void onItemClicked(UMKM umkm) {
+                                showSelectedUMKM(umkm);
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Terjadi kesalahan mengambil data.", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
