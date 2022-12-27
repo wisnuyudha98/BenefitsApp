@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#eee"
     tools:context=".Activity.SearchResultActivity">
 
     <include layout="@layout/toolbar"/>
@@ -15,8 +16,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
+        android:gravity="center"
+        android:background="@drawable/background_text_daftar_umkm"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="30sp"
+        android:textColor="#ffb9b9"
         android:text="@string/search_result"/>
 
     <androidx.recyclerview.widget.RecyclerView

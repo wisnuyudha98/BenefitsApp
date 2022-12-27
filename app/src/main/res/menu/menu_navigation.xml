@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/menu_cari"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="Pencarian"/>
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_kategori"
+            android:icon="@drawable/ic_baseline_search_24"
+            android:title="Kategori"/>
+
+        <item
+            android:id="@+id/menu_kategori_makanan"
+            android:title="Makanan"/>
+
+        <item
+            android:id="@+id/menu_kategori_minuman"
+            android:title="Minuman"/>
+
+        <item
+            android:id="@+id/menu_kategori_toko"
+            android:title="Toko/Apotek"/>
+
+        <item
+            android:id="@+id/menu_kategori_jasa"
+            android:title="Jasa/lainnya"/>
+
+    </group>
 
     <item
         android:id="@+id/menu_login"
@@ -21,7 +41,7 @@
     <item
         android:id="@+id/menu_daftar_umkm"
         android:icon="@drawable/ic_baseline_post_add_24"
-        android:title="Daftar UMKM"
+        android:title="Pendaftaran UMKM"
         android:visible="false"/>
 
     <item

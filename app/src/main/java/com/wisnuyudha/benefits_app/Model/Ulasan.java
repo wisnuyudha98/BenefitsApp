@@ -4,62 +4,51 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ulasan {
 
-    @SerializedName("id_ulasan")
-    private int id_ulasan;
-
     @SerializedName("penulis_ulasan")
-    private String penulisUlasan;
+    private String penulis_ulasan;
 
     @SerializedName("nama_umkm")
-    private String namaUMKM;
+    private String nama_umkm;
 
     @SerializedName("isi_ulasan")
-    private String isiUlasan;
+    private String isi_ulasan;
 
     @SerializedName("nilai_ulasan")
-    private float nilaiUlasan;
+    private float nilai_ulasan;
 
     @SerializedName("referral")
     private String referral;
 
-    public int getId_ulasan() {
-        return id_ulasan;
+    public String getPenulis_ulasan() {
+        return penulis_ulasan;
     }
 
-    public void setId_ulasan(int id_ulasan) {
-        this.id_ulasan = id_ulasan;
+    public void setPenulis_ulasan(String penulis_ulasan) {
+        this.penulis_ulasan = penulis_ulasan;
     }
 
-    public String getPenulisUlasan() {
-        return penulisUlasan;
+    public String getNama_umkm() {
+        return nama_umkm;
     }
 
-    public void setPenulisUlasan(String penulisUlasan) {
-        this.penulisUlasan = penulisUlasan;
+    public void setNama_umkm(String nama_umkm) {
+        this.nama_umkm = nama_umkm;
     }
 
-    public String getNamaUMKM() {
-        return namaUMKM;
+    public String getIsi_ulasan() {
+        return isi_ulasan;
     }
 
-    public void setNamaUMKM(String namaUMKM) {
-        this.namaUMKM = namaUMKM;
+    public void setIsi_ulasan(String isi_ulasan) {
+        this.isi_ulasan = isi_ulasan;
     }
 
-    public String getIsiUlasan() {
-        return isiUlasan;
+    public float getNilai_ulasan() {
+        return nilai_ulasan;
     }
 
-    public void setIsiUlasan(String isiUlasan) {
-        this.isiUlasan = isiUlasan;
-    }
-
-    public float getNilaiUlasan() {
-        return nilaiUlasan;
-    }
-
-    public void setNilaiUlasan(float nilaiUlasan) {
-        this.nilaiUlasan = nilaiUlasan;
+    public void setNilai_ulasan(float nilai_ulasan) {
+        this.nilai_ulasan = nilai_ulasan;
     }
 
     public String getReferral() {

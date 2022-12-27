@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "485252849599",
+    "firebase_url": "https://benefits-app-8403d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "benefits-app-8403d",
+    "storage_bucket": "benefits-app-8403d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485252849599:android:6b5f392258e7753bfa8b0a",
+        "android_client_info": {
+          "package_name": "com.wisnuyudha.benefits_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485252849599-do1tn3af6r9huf346bf77pcora1h55dm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdrnPDnPSw6yCE4gBlduwQcDmjfZFxPuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485252849599-do1tn3af6r9huf346bf77pcora1h55dm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

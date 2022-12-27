@@ -1,6 +1,9 @@
 package com.wisnuyudha.benefits_app.Adapter;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.wisnuyudha.benefits_app.Config;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.wisnuyudha.benefits_app.Model.UMKM;
 import com.wisnuyudha.benefits_app.R;
 
@@ -23,13 +26,16 @@ public class UMKMAdapter extends RecyclerView.Adapter<UMKMAdapter.ListViewHolder
     private List<UMKM> listUMKM;
     private OnItemClickCallback onItemClickCallback;
     SharedPreferences sp;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    Context context;
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    public UMKMAdapter(List<UMKM> list){
+    public UMKMAdapter(List<UMKM> list, Context context){
         this.listUMKM = list;
+        this.context = context;
     }
 
     @NonNull
@@ -42,13 +48,20 @@ public class UMKMAdapter extends RecyclerView.Adapter<UMKMAdapter.ListViewHolder
     @Override
     public void onBindViewHolder(@NonNull UMKMAdapter.ListViewHolder holder, int position) {
         UMKM umkm = listUMKM.get(position);
-        Glide.with(holder.itemView.getContext())
-                .load(Config.UMKM_IMAGES_URL + umkm.getFotoUMKM())
-                .apply(new RequestOptions().override(75, 75))
-                .into(holder.fotoUMKM);
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(umkm.getFoto_umkm());
 
-        holder.namaUMKM.setText(umkm.getNamaUMKM());
-        holder.deskripsiUMKM.setText(umkm.getDeskripsiUMKM());
+        final long ONE_MEGABYTE = 1024 * 1024 * 100;
+        storageReference.getBytes(ONE_MEGABYTE)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        holder.fotoUMKM.setImageBitmap(bmp);
+                    }
+                });
+
+        holder.namaUMKM.setText(umkm.getNama_umkm());
+        holder.deskripsiUMKM.setText(umkm.getDeskripsi_umkm());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

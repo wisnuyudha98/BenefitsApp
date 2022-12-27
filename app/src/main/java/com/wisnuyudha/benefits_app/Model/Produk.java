@@ -4,58 +4,47 @@ import com.google.gson.annotations.SerializedName;
 
 public class Produk {
 
-    @SerializedName("id_produk")
-    private int idProduk;
-
     @SerializedName("nama_produk")
-    private String namaProduk;
+    private String nama_produk;
 
     @SerializedName("deskripsi_produk")
-    private String deskripsiProduk;
+    private String deskripsi_produk;
 
     @SerializedName("harga_produk")
-    private int hargaProduk;
+    private int harga_produk;
 
     @SerializedName("nama_umkm")
-    private String namaUMKMProduk;
+    private String nama_umkm;
 
-    public int getIdProduk() {
-        return idProduk;
+    public String getNama_produk() {
+        return nama_produk;
     }
 
-    public void setIdProduk(int idProduk) {
-        this.idProduk = idProduk;
+    public void setNama_produk(String nama_produk) {
+        this.nama_produk = nama_produk;
     }
 
-    public String getNamaProduk() {
-        return namaProduk;
+    public String getDeskripsi_produk() {
+        return deskripsi_produk;
     }
 
-    public void setNamaProduk(String namaProduk) {
-        this.namaProduk = namaProduk;
+    public void setDeskripsi_produk(String deskripsi_produk) {
+        this.deskripsi_produk = deskripsi_produk;
     }
 
-    public String getDeskripsiProduk() {
-        return deskripsiProduk;
+    public int getHarga_produk() {
+        return harga_produk;
     }
 
-    public void setDeskripsiProduk(String deskripsiProduk) {
-        this.deskripsiProduk = deskripsiProduk;
+    public void setHarga_produk(int harga_produk) {
+        this.harga_produk = harga_produk;
     }
 
-    public int getHargaProduk() {
-        return hargaProduk;
+    public String getNama_umkm() {
+        return nama_umkm;
     }
 
-    public void setHargaProduk(int hargaProduk) {
-        this.hargaProduk = hargaProduk;
-    }
-
-    public String getNamaUMKMProduk() {
-        return namaUMKMProduk;
-    }
-
-    public void setNamaUMKMProduk(String namaUMKMProduk) {
-        this.namaUMKMProduk = namaUMKMProduk;
+    public void setNama_umkm(String nama_umkm) {
+        this.nama_umkm = nama_umkm;
     }
 }

@@ -13,13 +13,13 @@ public class User {
     private String password;
 
     @SerializedName("user_role")
-    private String userRole;
+    private String user_role;
 
     @SerializedName("nama_user")
-    private String namaUser;
+    private String nama_user;
 
     @SerializedName("foto_user")
-    private String fotoUser;
+    private String foto_user;
 
     public String getUsername() {
         return username;
@@ -37,27 +37,27 @@ public class User {
         this.password = password;
     }
 
-    public String getUserRole() {
-        return userRole;
+    public String getUser_role() {
+        return user_role;
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
+    public void setUser_role(String user_role) {
+        this.user_role = user_role;
     }
 
-    public String getNamaUser() {
-        return namaUser;
+    public String getNama_user() {
+        return nama_user;
     }
 
-    public void setNamaUser(String namaUser) {
-        this.namaUser = namaUser;
+    public void setNama_user(String nama_user) {
+        this.nama_user = nama_user;
     }
 
-    public String getFotoUser() {
-        return fotoUser;
+    public String getFoto_user() {
+        return foto_user;
     }
 
-    public void setFotoUser(String fotoUser) {
-        this.fotoUser = fotoUser;
+    public void setFoto_user(String foto_user) {
+        this.foto_user = foto_user;
     }
 }

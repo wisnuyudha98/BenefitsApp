@@ -6,27 +6,28 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.wisnuyudha.benefits_app.Adapter.ProdukAdapter;
-import com.wisnuyudha.benefits_app.Model.GetProduk;
 import com.wisnuyudha.benefits_app.Model.Produk;
 import com.wisnuyudha.benefits_app.R;
 import com.wisnuyudha.benefits_app.RestApi.ApiClient;
 import com.wisnuyudha.benefits_app.RestApi.ApiInterface;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ListProdukActivity extends AppCompatActivity {
 
@@ -39,6 +40,7 @@ public class ListProdukActivity extends AppCompatActivity {
     public static final String EXTRA_NAMA_UMKM = "nama_umkm";
     public static final String EXTRA_PENGELOLA_UMKM = "pengelola_umkm";
     Toolbar toolbar;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class ListProdukActivity extends AppCompatActivity {
 
         data();
 
-        if (nama_user.equals(pengelola_umkm)) {
+        if (nama_user.equals(pengelola_umkm) || nama_user.equals("Admin Benefits")) {
             buttonTambahProduk.setVisibility(View.VISIBLE);
         }
         else {
@@ -84,31 +86,38 @@ public class ListProdukActivity extends AppCompatActivity {
         });
     }
 
-    public void data() {
-        Call<GetProduk> ProdukCall = mApiInterface.getProduk("get_produk", nama_umkm);
-        ProdukCall.enqueue(new Callback<GetProduk>() {
-            @Override
-            public void onResponse(Call<GetProduk> call, Response<GetProduk> response) {
-                List<Produk> produkList = response.body().getListDataProduk();
-                ProdukAdapter listProdukAdapter = new ProdukAdapter(produkList, ListProdukActivity.this, getIntent().getStringExtra(EXTRA_PENGELOLA_UMKM));
-                rvProduk.setAdapter(listProdukAdapter);
-                rvProduk.setLayoutManager(new GridLayoutManager(ListProdukActivity.this, 2));
-            }
-
-            @Override
-            public void onFailure(Call<GetProduk> call, Throwable t) {
-                Log.e(TAG, "Terjadi kesalahan");
-            }
-        });
+    @Override
+    protected void onResume() {
+        data();
+        super.onResume();
     }
 
-    private void showSelectedProduk(Produk produk) {
-        Intent intent = new Intent(ListProdukActivity.this, TambahEditProdukActivity.class);
-        intent.putExtra(TambahEditProdukActivity.EXTRA_NAMA_UMKM, produk.getNamaUMKMProduk());
-        intent.putExtra(TambahEditProdukActivity.EXTRA_NAMA_PRODUK, produk.getNamaProduk());
-        intent.putExtra(TambahEditProdukActivity.EXTRA_DESKRIPSI_PRODUK, produk.getDeskripsiProduk());
-        intent.putExtra(TambahEditProdukActivity.EXTRA_HARGA_PRODUK, produk.getHargaProduk());
-        sp.edit().putString("Status", "Edit").apply();
-        startActivity(intent);
+    public void data() {
+        db.collection("produk")
+                .whereEqualTo("nama_umkm", nama_umkm)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<Produk> listProduk = queryDocumentSnapshots.toObjects(Produk.class);
+                        ProdukAdapter listProdukAdapter = new ProdukAdapter(listProduk, ListProdukActivity.this, getIntent().getStringExtra(EXTRA_PENGELOLA_UMKM));
+                        rvProduk.setAdapter(listProdukAdapter);
+                        rvProduk.setLayoutManager(new GridLayoutManager(ListProdukActivity.this, 2));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Terjadi kesalahan");
+                    }
+                });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -37,6 +37,23 @@
         android:inputType="textPassword"
         android:hint="@string/password"/>
 
+    <ImageView
+        android:id="@+id/preview_gambar_user"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/border_foto"/>
+
+    <Button
+        android:id="@+id/button_pilih_gambar_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:text="Pilih gambar"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

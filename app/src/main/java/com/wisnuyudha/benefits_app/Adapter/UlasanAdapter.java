@@ -52,14 +52,14 @@ public class UlasanAdapter extends RecyclerView.Adapter<UlasanAdapter.ListViewHo
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Ulasan ulasan = listUlasan.get(position);
-        String nama_penulis = ulasan.getPenulisUlasan();
+        String nama_penulis = ulasan.getPenulis_ulasan();
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         Call<GetUser> getUserCall = mApiInterface.getFotoUser("get_foto_user", nama_penulis);
         getUserCall.enqueue(new Callback<GetUser>() {
             @Override
             public void onResponse(Call<GetUser> call, Response<GetUser> response) {
-                String foto_penulis = response.body().getUser().getFotoUser();
+                String foto_penulis = response.body().getUser().getFoto_user();
                 Glide.with(holder.itemView.getContext())
                         .load(Config.USER_IMAGES_URL + foto_penulis)
                         .apply(new RequestOptions().override(40, 40))
@@ -72,10 +72,10 @@ public class UlasanAdapter extends RecyclerView.Adapter<UlasanAdapter.ListViewHo
             }
         });
 
-        holder.penulisUlasan.setText(ulasan.getPenulisUlasan());
+        holder.penulisUlasan.setText(ulasan.getPenulis_ulasan());
         holder.referralUlasan.setText(ulasan.getReferral());
-        holder.nilaiUlasan.setRating(ulasan.getNilaiUlasan());
-        holder.isiUlasan.setText(ulasan.getIsiUlasan());
+        holder.nilaiUlasan.setRating(ulasan.getNilai_ulasan());
+        holder.isiUlasan.setText(ulasan.getIsi_ulasan());
     }
 
     @Override

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_screen_bg"
-    android:animateLayoutChanges="true"
+    android:background="#90a17d"
     tools:context=".Activity.SplashScreenActivity">
 
     <ImageView
@@ -17,7 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/benefits_logo"
-        android:visibility="invisible"/>
+        android:src="@drawable/benefits_logo"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

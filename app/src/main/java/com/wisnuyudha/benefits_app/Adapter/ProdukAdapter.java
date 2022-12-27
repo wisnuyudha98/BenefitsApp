@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.FirebaseStorage;
 import com.wisnuyudha.benefits_app.Activity.TambahEditProdukActivity;
 import com.wisnuyudha.benefits_app.Model.Produk;
 import com.wisnuyudha.benefits_app.R;
@@ -27,6 +28,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ListViewHo
     private Context context;
     private String pengelola;
     SharedPreferences sp;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
@@ -49,9 +51,9 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ListViewHo
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         sp = context.getSharedPreferences("LOGIN", MODE_PRIVATE);
         Produk produk = listProduk.get(position);
-        holder.namaProduk.setText(produk.getNamaProduk());
-        holder.deskripsiProduk.setText(produk.getDeskripsiProduk());
-        holder.hargaProduk.setText("Rp. " + produk.getHargaProduk());
+        holder.namaProduk.setText(produk.getNama_produk());
+        holder.deskripsiProduk.setText(produk.getDeskripsi_produk());
+        holder.hargaProduk.setText("Rp. " + produk.getHarga_produk());
         if (sp.contains("USER_ROLE") && (sp.getString("USER_ROLE", "").equals("Admin") || (sp.getString("USER_ROLE", "").equals("Pengusaha") && sp.getString("USER_NAME", "").equals(pengelola)))) {
             holder.buttonEditProduk.setVisibility(View.VISIBLE);
             holder.buttonEditProduk.setOnClickListener(new View.OnClickListener() {
@@ -59,9 +61,9 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ListViewHo
                 public void onClick(View view) {
                     sp.edit().putString("Status", "Edit").apply();
                     Intent intent = new Intent(context, TambahEditProdukActivity.class);
-                    intent.putExtra(TambahEditProdukActivity.EXTRA_NAMA_PRODUK, produk.getNamaProduk());
-                    intent.putExtra(TambahEditProdukActivity.EXTRA_DESKRIPSI_PRODUK, produk.getDeskripsiProduk());
-                    intent.putExtra(TambahEditProdukActivity.EXTRA_HARGA_PRODUK, produk.getHargaProduk());
+                    intent.putExtra(TambahEditProdukActivity.EXTRA_NAMA_PRODUK, produk.getNama_produk());
+                    intent.putExtra(TambahEditProdukActivity.EXTRA_DESKRIPSI_PRODUK, produk.getDeskripsi_produk());
+                    intent.putExtra(TambahEditProdukActivity.EXTRA_HARGA_PRODUK, produk.getHarga_produk());
                     context.startActivity(intent);
                 }
             });

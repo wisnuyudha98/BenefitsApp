@@ -15,8 +15,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.wisnuyudha.benefits_app.Adapter.UMKMAdapter;
-import com.wisnuyudha.benefits_app.Model.GetListUMKM;
 import com.wisnuyudha.benefits_app.Model.UMKM;
 import com.wisnuyudha.benefits_app.R;
 import com.wisnuyudha.benefits_app.RestApi.ApiClient;
@@ -24,10 +27,7 @@ import com.wisnuyudha.benefits_app.RestApi.ApiInterface;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.Locale;
 
 public class SearchResultActivity extends AppCompatActivity {
 
@@ -40,6 +40,8 @@ public class SearchResultActivity extends AppCompatActivity {
     SharedPreferences sp;
     Toolbar toolbar;
     private DataLoading dataLoading;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    List<UMKM> dataUMKM = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,57 +66,57 @@ public class SearchResultActivity extends AppCompatActivity {
         dataLoading.execute();
     }
 
-    public void dataSearch() {
-        if (sp.contains("Search") && sp.getString("Search", "").equals("kategori")) {
-            Call<GetListUMKM> getSearchList = mApiInterface.getUMKMFromKategori("get_umkm_from_kategori", getIntent().getStringExtra(EXTRA_KATEGORI));
-            getSearchList.enqueue(new Callback<GetListUMKM>() {
-                @Override
-                public void onResponse(Call<GetListUMKM> call, Response<GetListUMKM> response) {
-                    sp.edit().remove("Search").apply();
-                    List<UMKM> listUMKM = response.body().getListDataUMKM();
-                    UMKMAdapter listUMKMAdapter = new UMKMAdapter(listUMKM);
-                    rvUMKM.setAdapter(listUMKMAdapter);
-                    rvUMKM.setLayoutManager(new LinearLayoutManager(SearchResultActivity.this));
+    public void getSearchResult() {
+        db.collection("umkm").
+                get().
+                addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        dataUMKM = queryDocumentSnapshots.toObjects(UMKM.class);
+                        if (sp.contains("Search") && sp.getString("Search", "").equals("kategori")) {
+                            List<UMKM> searchResult = new ArrayList<>();
+                            for (int i = 0; i < dataUMKM.size(); i++) {
+                                if (dataUMKM.get(i).getKategori().toLowerCase(Locale.ROOT).contains(getIntent().getStringExtra(EXTRA_KATEGORI).toLowerCase(Locale.ROOT))) {
+                                    searchResult.add(dataUMKM.get(i));
+                                }
+                            }
+                            UMKMAdapter listUMKMAdapter = new UMKMAdapter(searchResult, SearchResultActivity.this);
+                            rvUMKM.setAdapter(listUMKMAdapter);
+                            rvUMKM.setLayoutManager(new LinearLayoutManager(SearchResultActivity.this));
 
-                    listUMKMAdapter.setOnItemClickCallback(new UMKMAdapter.OnItemClickCallback() {
-                        @Override
-                        public void onItemClicked(UMKM umkm) {
-                            showSelectedUMKM(umkm);
+                            listUMKMAdapter.setOnItemClickCallback(new UMKMAdapter.OnItemClickCallback() {
+                                @Override
+                                public void onItemClicked(UMKM umkm) {
+                                    showSelectedUMKM(umkm);
+                                }
+                            });
                         }
-                    });
-                }
+                        else {
+                            List<UMKM> searchResult = new ArrayList<>();
+                            for (int i = 0; i < dataUMKM.size(); i++) {
+                                if (dataUMKM.get(i).getNama_umkm().toLowerCase(Locale.ROOT).contains(getIntent().getStringExtra(EXTRA_CARI).toLowerCase(Locale.ROOT))) {
+                                    searchResult.add(dataUMKM.get(i));
+                                }
+                            }
+                            UMKMAdapter listUMKMAdapter = new UMKMAdapter(searchResult, SearchResultActivity.this);
+                            rvUMKM.setAdapter(listUMKMAdapter);
+                            rvUMKM.setLayoutManager(new LinearLayoutManager(SearchResultActivity.this));
 
-                @Override
-                public void onFailure(Call<GetListUMKM> call, Throwable t) {
-                    emptyResult.setVisibility(View.VISIBLE);
-                }
-            });
-        }
-        else {
-            Call<GetListUMKM> getSearchList = mApiInterface.getUMKM("get_umkm", getIntent().getStringExtra(EXTRA_CARI));
-            getSearchList.enqueue(new Callback<GetListUMKM>() {
-                @Override
-                public void onResponse(Call<GetListUMKM> call, Response<GetListUMKM> response) {
-                    sp.edit().remove("Search").apply();
-                    List<UMKM> listUMKM = response.body().getListDataUMKM();
-                    UMKMAdapter listUMKMAdapter = new UMKMAdapter(listUMKM);
-                    rvUMKM.setAdapter(listUMKMAdapter);
-                    rvUMKM.setLayoutManager(new LinearLayoutManager(SearchResultActivity.this));
-
-                    listUMKMAdapter.setOnItemClickCallback(new UMKMAdapter.OnItemClickCallback() {
-                        @Override
-                        public void onItemClicked(UMKM umkm) {
-                            showSelectedUMKM(umkm);
+                            listUMKMAdapter.setOnItemClickCallback(new UMKMAdapter.OnItemClickCallback() {
+                                @Override
+                                public void onItemClicked(UMKM umkm) {
+                                    showSelectedUMKM(umkm);
+                                }
+                            });
                         }
-                    });
-                }
-
-                @Override
-                public void onFailure(Call<GetListUMKM> call, Throwable t) {
-                    emptyResult.setVisibility(View.VISIBLE);
-                }
-            });
-        }
+                    }
+                }).
+                addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        emptyResult.setVisibility(View.VISIBLE);
+                    }
+                });
     }
 
     @Override
@@ -127,13 +129,12 @@ public class SearchResultActivity extends AppCompatActivity {
 
     public void showSelectedUMKM(UMKM umkm) {
         Intent intent = new Intent(SearchResultActivity.this, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_NAMA_UMKM, umkm.getNamaUMKM());
-        intent.putExtra(DetailActivity.EXTRA_DESKRIPSI_UMKM, umkm.getDeskripsiUMKM());
-        intent.putExtra(DetailActivity.EXTRA_ALAMAT_UMKM, umkm.getAlamatUMKM());
-        intent.putExtra(DetailActivity.EXTRA_KONTAK_UMKM, umkm.getKontakUMKM());
+        intent.putExtra(DetailActivity.EXTRA_NAMA_UMKM, umkm.getNama_umkm());
+        intent.putExtra(DetailActivity.EXTRA_DESKRIPSI_UMKM, umkm.getDeskripsi_umkm());
+        intent.putExtra(DetailActivity.EXTRA_KONTAK_UMKM, umkm.getKontak_umkm());
         intent.putExtra(DetailActivity.EXTRA_KATEGORI, umkm.getKategori());
-        intent.putExtra(DetailActivity.EXTRA_PENGELOLA_UMKM, umkm.getPengelolaUMKM());
-        intent.putExtra(DetailActivity.EXTRA_FOTO_UMKM, umkm.getFotoUMKM());
+        intent.putExtra(DetailActivity.EXTRA_PENGELOLA_UMKM, umkm.getPengelola_umkm());
+        intent.putExtra(DetailActivity.EXTRA_FOTO_UMKM, umkm.getFoto_umkm());
         startActivity(intent);
     }
 
@@ -156,7 +157,7 @@ public class SearchResultActivity extends AppCompatActivity {
             else {
                 searchHighlight.setText("Anda mencari: " + getIntent().getStringExtra(EXTRA_CARI));
             }
-            dataSearch();
+            getSearchResult();
             return null;
         }
 

@@ -1,68 +1,71 @@
 package com.wisnuyudha.benefits_app.Model;
 
+import com.google.firebase.firestore.GeoPoint;
 import com.google.gson.annotations.SerializedName;
 
 public class UMKM {
 
     @SerializedName("nama_umkm")
-    private String namaUMKM;
+    private String nama_umkm;
 
     @SerializedName("deskripsi_umkm")
-    private String deskripsiUMKM;
+    private String deskripsi_umkm;
 
     @SerializedName("pengelola_umkm")
-    private String pengelolaUMKM;
+    private String pengelola_umkm;
 
     @SerializedName("alamat_umkm")
-    private String alamatUMKM;
+    private GeoPoint alamat_umkm;
 
     @SerializedName("kontak_umkm")
-    private String kontakUMKM;
+    private String kontak_umkm;
 
     @SerializedName("kategori")
     private String kategori;
 
     @SerializedName("foto_umkm")
-    private String fotoUMKM;
+    private String foto_umkm;
 
-    public String getNamaUMKM() {
-        return namaUMKM;
+    private String lowercase_name;
+
+    public String getNama_umkm() {
+        return nama_umkm;
     }
 
-    public void setNamaUMKM(String namaUMKM) {
-        this.namaUMKM = namaUMKM;
+    public void setNama_umkm(String nama_umkm) {
+        this.nama_umkm = nama_umkm;
     }
 
-    public String getDeskripsiUMKM() {
-        return deskripsiUMKM;
+    public String getDeskripsi_umkm() {
+        return deskripsi_umkm;
     }
 
-    public void setDeskripsiUMKM(String deskripsiUMKM) {
-        this.deskripsiUMKM = deskripsiUMKM;
+    public void setDeskripsi_umkm(String deskripsi_umkm) {
+        this.deskripsi_umkm = deskripsi_umkm;
     }
 
-    public String getPengelolaUMKM() {
-        return pengelolaUMKM;
+    public String getPengelola_umkm() {
+        return pengelola_umkm;
     }
 
-    public void setPengelolaUMKM(String pengelolaUMKM) {
-        this.pengelolaUMKM = pengelolaUMKM;
+    public void setPengelola_umkm(String pengelola_umkm) {
+        this.pengelola_umkm = pengelola_umkm;
     }
 
-    public String getAlamatUMKM() {
-        return alamatUMKM;
+    public GeoPoint getAlamat_umkm() {
+        return alamat_umkm;
     }
 
-    public void setAlamatUMKM(String alamatUMKM) {
-        this.alamatUMKM = alamatUMKM;
+    public void setAlamat_umkm(GeoPoint alamat_umkm) {
+        this.alamat_umkm = alamat_umkm;
     }
 
-    public String getKontakUMKM() {
-        return kontakUMKM;
+    public String getKontak_umkm() {
+        return kontak_umkm;
     }
 
-    public void setKontakUMKM(String kontakUMKM) {
-        this.kontakUMKM = kontakUMKM;
+    public void setKontak_umkm(String kontak_umkm) {
+        this.kontak_umkm = kontak_umkm;
     }
 
     public String getKategori() {
@@ -73,11 +76,19 @@ public class UMKM {
         this.kategori = kategori;
     }
 
-    public String getFotoUMKM() {
-        return fotoUMKM;
+    public String getFoto_umkm() {
+        return foto_umkm;
     }
 
-    public void setFotoUMKM(String fotoUMKM) {
-        this.fotoUMKM = fotoUMKM;
+    public void setFoto_umkm(String foto_umkm) {
+        this.foto_umkm = foto_umkm;
+    }
+
+    public String getLowercase_name() {
+        return lowercase_name;
+    }
+
+    public void setLowercase_name(String lowercase_name) {
+        this.lowercase_name = lowercase_name;
     }
 }

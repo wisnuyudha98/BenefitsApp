@@ -42,7 +42,7 @@ public class ListUMKMAdminActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<GetListUMKM> call, Response<GetListUMKM> response) {
                 List<UMKM> listUMKM = response.body().getListDataUMKM();
-                UMKMAdapter listUMKMAdapter = new UMKMAdapter(listUMKM);
+                UMKMAdapter listUMKMAdapter = new UMKMAdapter(listUMKM, ListUMKMAdminActivity.this);
 
                 rvadmin.setAdapter(listUMKMAdapter);
 
@@ -63,13 +63,12 @@ public class ListUMKMAdminActivity extends AppCompatActivity {
 
     public void showSelectedUMKM (UMKM umkm) {
         Intent intent = new Intent(ListUMKMAdminActivity.this, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_NAMA_UMKM, umkm.getNamaUMKM());
-        intent.putExtra(DetailActivity.EXTRA_DESKRIPSI_UMKM, umkm.getDeskripsiUMKM());
-        intent.putExtra(DetailActivity.EXTRA_ALAMAT_UMKM, umkm.getAlamatUMKM());
-        intent.putExtra(DetailActivity.EXTRA_KONTAK_UMKM, umkm.getKontakUMKM());
+        intent.putExtra(DetailActivity.EXTRA_NAMA_UMKM, umkm.getNama_umkm());
+        intent.putExtra(DetailActivity.EXTRA_DESKRIPSI_UMKM, umkm.getDeskripsi_umkm());
+        intent.putExtra(DetailActivity.EXTRA_KONTAK_UMKM, umkm.getKontak_umkm());
         intent.putExtra(DetailActivity.EXTRA_KATEGORI, umkm.getKategori());
-        intent.putExtra(DetailActivity.EXTRA_PENGELOLA_UMKM, umkm.getPengelolaUMKM());
-        intent.putExtra(DetailActivity.EXTRA_FOTO_UMKM, umkm.getFotoUMKM());
+        intent.putExtra(DetailActivity.EXTRA_PENGELOLA_UMKM, umkm.getPengelola_umkm());
+        intent.putExtra(DetailActivity.EXTRA_FOTO_UMKM, umkm.getFoto_umkm());
         startActivity(intent);
     }
 }

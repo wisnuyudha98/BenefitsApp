@@ -5,76 +5,86 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="30dp"
     tools:context=".Activity.TambahUlasanActivity">
 
-    <EditText
-        android:id="@+id/input_ulasan"
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:inputType="textMultiLine"
-        android:hint="Tulis ulasan anda di sini"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="30dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:text="Nilai ulasan"
-        android:textSize="15sp"/>
+        <EditText
+            android:id="@+id/input_ulasan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:inputType="textMultiLine"
+            android:hint="Tulis ulasan anda di sini"/>
 
-    <RatingBar
-        android:id="@+id/nilai_ulasan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center"
-        android:isIndicator="false"
-        android:stepSize="1"/>
-
-    <TextView
-        android:id="@+id/header_referral"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Tahu UMKM dari:"
-        android:textSize="15sp"/>
-
-    <RadioGroup
-        android:id="@+id/radio_group_referral"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/referral_app"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Aplikasi"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="Nilai ulasan"
+            android:textSize="15sp"/>
 
-        <RadioButton
-            android:id="@+id/referral_kerabat"
+        <RatingBar
+            android:id="@+id/nilai_ulasan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Teman / Kerabat"/>
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:isIndicator="false"
+            android:stepSize="1"/>
 
-        <RadioButton
-            android:id="@+id/referral_lain"
+        <TextView
+            android:id="@+id/header_referral"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lainnya:"/>
+            android:layout_marginTop="20dp"
+            android:text="Tahu UMKM dari:"
+            android:textSize="15sp"/>
 
-    </RadioGroup>
+        <RadioGroup
+            android:id="@+id/radio_group_referral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/referral_lain_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/referral_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aplikasi"/>
 
-    <Button
-        android:id="@+id/button_input_ulasan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Kirim ulasan"/>
+            <RadioButton
+                android:id="@+id/referral_kerabat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teman / Kerabat"/>
+
+            <RadioButton
+                android:id="@+id/referral_lain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lainnya:"/>
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/referral_lain_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/button_input_ulasan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Kirim ulasan"/>
+
+    </LinearLayout>
+
 </LinearLayout>
