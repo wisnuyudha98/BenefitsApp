@@ -24,7 +24,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.wisnuyudha.benefits_app.Adapter.UlasanAdapter;
 import com.wisnuyudha.benefits_app.Model.Ulasan;
 import com.wisnuyudha.benefits_app.R;
-import com.wisnuyudha.benefits_app.RestApi.ApiClient;
 import com.wisnuyudha.benefits_app.RestApi.ApiInterface;
 
 import java.util.List;
@@ -50,7 +49,6 @@ public class ListUlasanActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         rvUlasan.setLayoutManager(mLayoutManager);
         buttonTambahUlasan = findViewById(R.id.button_tambah_ulasan);
-        mApiInterface = ApiClient.getClient().create(ApiInterface.class);
         toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);

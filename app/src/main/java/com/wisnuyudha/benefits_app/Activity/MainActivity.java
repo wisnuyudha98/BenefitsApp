@@ -33,7 +33,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.wisnuyudha.benefits_app.Model.UMKM;
 import com.wisnuyudha.benefits_app.Model.User;
 import com.wisnuyudha.benefits_app.R;
 
@@ -202,17 +201,6 @@ public class MainActivity extends AppCompatActivity{
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showSelectedUMKM(UMKM umkm) {
-        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_NAMA_UMKM, umkm.getNama_umkm());
-        intent.putExtra(DetailActivity.EXTRA_DESKRIPSI_UMKM, umkm.getDeskripsi_umkm());
-        intent.putExtra(DetailActivity.EXTRA_KONTAK_UMKM, umkm.getKontak_umkm());
-        intent.putExtra(DetailActivity.EXTRA_KATEGORI, umkm.getKategori());
-        intent.putExtra(DetailActivity.EXTRA_PENGELOLA_UMKM, umkm.getPengelola_umkm());
-        intent.putExtra(DetailActivity.EXTRA_FOTO_UMKM, umkm.getFoto_umkm());
-        startActivity(intent);
     }
 
     public void setLogos() {

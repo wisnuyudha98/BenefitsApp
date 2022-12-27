@@ -32,7 +32,6 @@ public class UlasanAdapter extends RecyclerView.Adapter<UlasanAdapter.ListViewHo
 
     private List<Ulasan> listUlasan;
     private OnItemClickCallback onItemClickCallback;
-    ApiInterface mApiInterface;
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
@@ -53,24 +52,6 @@ public class UlasanAdapter extends RecyclerView.Adapter<UlasanAdapter.ListViewHo
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Ulasan ulasan = listUlasan.get(position);
         String nama_penulis = ulasan.getPenulis_ulasan();
-        mApiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<GetUser> getUserCall = mApiInterface.getFotoUser("get_foto_user", nama_penulis);
-        getUserCall.enqueue(new Callback<GetUser>() {
-            @Override
-            public void onResponse(Call<GetUser> call, Response<GetUser> response) {
-                String foto_penulis = response.body().getUser().getFoto_user();
-                Glide.with(holder.itemView.getContext())
-                        .load(Config.USER_IMAGES_URL + foto_penulis)
-                        .apply(new RequestOptions().override(40, 40))
-                        .into(holder.fotoUlasan);
-            }
-
-            @Override
-            public void onFailure(Call<GetUser> call, Throwable t) {
-                Log.e(TAG, "Gagal memuat foto");
-            }
-        });
 
         holder.penulisUlasan.setText(ulasan.getPenulis_ulasan());
         holder.referralUlasan.setText(ulasan.getReferral());

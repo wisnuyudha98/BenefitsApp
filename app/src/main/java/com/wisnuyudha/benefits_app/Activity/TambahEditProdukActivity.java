@@ -26,7 +26,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.wisnuyudha.benefits_app.Model.Produk;
 import com.wisnuyudha.benefits_app.R;
-import com.wisnuyudha.benefits_app.RestApi.ApiClient;
 import com.wisnuyudha.benefits_app.RestApi.ApiInterface;
 
 import java.util.HashMap;
@@ -59,8 +58,6 @@ public class TambahEditProdukActivity extends AppCompatActivity {
         buttonInputProduk = findViewById(R.id.button_input_produk);
         buttonDeleteProduk = findViewById(R.id.button_delete_produk);
         toolbar = findViewById(R.id.toolbar);
-
-        mApiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         sp = getSharedPreferences("LOGIN", MODE_PRIVATE);
 

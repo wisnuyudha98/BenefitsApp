@@ -34,7 +34,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.wisnuyudha.benefits_app.Model.User;
 import com.wisnuyudha.benefits_app.R;
-import com.wisnuyudha.benefits_app.RestApi.ApiClient;
 import com.wisnuyudha.benefits_app.RestApi.ApiInterface;
 
 import java.io.FileNotFoundException;
@@ -77,7 +76,6 @@ public class DaftarUserActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Pendaftaran User Baru");
         }
 
-        mApiInterface = ApiClient.getClient().create(ApiInterface.class);
         daftarPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         buttonPilihGambar.setOnClickListener(new View.OnClickListener() {
